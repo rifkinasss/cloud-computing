@@ -183,12 +183,114 @@ Pada pekan keempat, kami menghubungkan frontend React (yang dibuat menggunakan V
    - Buka browser dan akses aplikasi React di `http://localhost:5173`.
    - Jika integrasi berhasil, Anda akan melihat pesan dari backend Flask ("Hello from Flask!") ditampilkan di halaman React.
 
-
 ---
 
-## Catatan Tambahan
+## Pekan 5: Integrasi Flask dengan PostgreSQL
 
-- Pastikan semua dependensi telah diinstal sebelum menjalankan aplikasi.
-- Jika ada pertanyaan atau masalah, silakan buat issue di repositori ini.
+Pada pekan kelima, kami membuat API yang terhubung ke database PostgreSQL dan menguji API tersebut menggunakan Postman. Berikut adalah langkah-langkah yang dilakukan:
+
+### 1. **Instalasi Dependensi**
+   - Install paket `psycopg2` untuk menghubungkan Flask ke PostgreSQL:
+     ```bash
+     pip install psycopg2
+     ```
+### 2. **Konfigurasi Koneksi Database**
+   - Tambahkan konfigurasi database PostgreSQL ke file `app.py` di backend:
+     ```python
+     import psycopg2
+      from flask import Flask, jsonify, request
+      
+      # Fungsi untuk koneksi ke database PostgreSQL
+      def get_db_connection():
+          conn = psycopg2.connect(
+              host="localhost",
+              database="test_db",  # Sesuaikan dengan nama database yang Anda buat
+              user="student",      # Sesuaikan dengan nama user
+              password="password"  # Sesuaikan dengan password user
+          )
+          return conn
+      
+      # Inisialisasi Flask
+      app = Flask(__name__)
+      
+      @app.route('/')
+      def home():
+          return jsonify({"message": "Hello from Flask!"})
+
+      # Endpoint untuk membaca data dari tabel 'items'
+      @app.route('/api/items', methods=['GET'])
+      def get_items():
+          conn = get_db_connection()
+          cur = conn.cursor()
+          cur.execute("SELECT id, name, description FROM items;")
+          rows = cur.fetchall()
+          cur.close()
+          conn.close()
+
+          items = [{"id": row[0], "name": row[1], "description": row[2]} for row in rows]
+          return jsonify(items)
+
+      # Endpoint untuk menambahkan data ke tabel 'items'
+      @app.route('/api/items', methods=['POST'])
+      def create_item():
+          data = request.json
+          name = data['name']
+          description = data['description']
+      
+          conn = get_db_connection()
+          cur = conn.cursor()
+          cur.execute("INSERT INTO items (name, description) VALUES (%s, %s) RETURNING id;", (name, description))
+          new_id = cur.fetchone()[0]
+          conn.commit()
+          cur.close()
+          conn.close()
+      
+          return jsonify({"id": new_id, "name": name, "description": description}), 201
+
+      # Jalankan Flask
+      if __name__ == '__main__':
+          app.run(debug=True, host='0.0.0.0', port=5000)
+     ```
+     - Ganti `username`, `password`, dan `db_name` dengan konfigurasi database PostgreSQL Anda.
+    
+### 3. **Membuat Database di PostgreSQL**
+   - Buat database di PostgreSQL menggunakan pgAdmin atau terminal:
+     ```sql
+     CREATE DATABASE test_db;
+     CREATE TABLE IF NOT EXISTS items (
+     id SERIAL PRIMARY KEY,
+     name VARCHAR(100),
+     description TEXT
+     );
+     ```
+
+### 4. **Menguji API Menggunakan Postman**
+   - **Menambahkan Data**:
+     - Buka Postman dan buat permintaan `POST` ke `http://127.0.0.1:5000/api/users`.
+     - Kirim body JSON seperti berikut:
+       ```json
+       {
+         "name": "Test Item",
+         "description": "This is description"
+       }
+       ```
+     - **Mengambil Data**:
+     - Buat permintaan `GET` ke `http://127.0.0.1:5000/api/users`.
+     - Anda akan menerima daftar semua pengguna dalam format JSON:
+       ```json
+       [
+         {
+           "id": 1,
+           "name": "Test Item",
+           "description": "This is description"
+         }
+       ]
+       ```
+
+---
+## Qoutes
+```
+"Satu-satunya cara untuk melakukan pekerjaan hebat adalah dengan mencintai apa yang kamu lakukan." – Steve Jobs
+```
 
 Terima kasih!
