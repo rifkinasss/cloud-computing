@@ -4,6 +4,28 @@ Selamat datang di repositori proyek Cloud Computing! Dokumentasi ini mencakup la
 
 ---
 
+## Pekan 1: Membuat Struktur Folder Proyek
+
+Pada pekan pertama, kami memulai proyek dengan membuat struktur folder dasar untuk mengorganisasi file proyek. Berikut adalah struktur folder yang dibuat:
+```
+cloud-computing-project/
+│
+├── backend/ # Folder untuk menyimpan file backend (API, logika server, dll.)
+├── db/ # Folder untuk menyimpan file database atau skrip terkait database
+└── frontend/ # Folder untuk menyimpan file frontend (UI, halaman web, dll.)
+```
+### Penjelasan Struktur Folder:
+1. **Backend**
+   - Folder ini digunakan untuk menyimpan semua file terkait backend, seperti file Python untuk API Flask, konfigurasi server, dan logika bisnis aplikasi.
+   
+2. **DB (Database)**
+   - Folder ini digunakan untuk menyimpan file terkait database, seperti skrip SQL, file migrasi, atau konfigurasi koneksi database.
+
+3. **Frontend**
+   - Folder ini digunakan untuk menyimpan semua file terkait frontend, seperti HTML, CSS, JavaScript, atau framework frontend seperti React atau Vue.js.
+
+---
+
 ## Pekan 2: Membuat API Sederhana dengan Flask (Backend)
 
 Pada pekan kedua, kami membuat API sederhana menggunakan Flask. Berikut adalah langkah-langkah yang dilakukan:
