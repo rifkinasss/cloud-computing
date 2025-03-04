@@ -115,9 +115,74 @@ Pada pekan ketiga, kami menginstal React menggunakan Vite sebagai alat pengemban
 
 ---
 
-## Pekan 4
+## Pekan 4: Menghubungkan React ke Flask
 
-(Tambahkan deskripsi tugas atau aktivitas yang dilakukan pada pekan keempat.)
+Pada pekan keempat, kami menghubungkan frontend React (yang dibuat menggunakan Vite) ke backend Flask. Berikut adalah langkah-langkah yang dilakukan:
+
+### 1. **Konfigurasi CORS di Flask**
+   - Untuk memungkinkan frontend React berkomunikasi dengan backend Flask, kita perlu mengaktifkan Cross-Origin Resource Sharing (CORS) di Flask.
+   - Install paket `flask-cors` menggunakan pip:
+     ```bash
+     pip install flask-cors
+     ```
+   - Tambahkan konfigurasi CORS ke file `app.py` di backend:
+     ```python
+     from flask import Flask, jsonify
+     from flask_cors import CORS
+
+     app = Flask(__name__)
+     CORS(app)  # Aktifkan CORS untuk semua rute
+
+     @app.route('/api/data', methods=['GET'])
+     def get_data():
+         return jsonify({"message": "Hello from Flask!"})
+
+     if __name__ == '__main__':
+         app.run(debug=True)
+     ```
+
+### 2. **Mengubah Base URL di React**
+   - Di frontend React, pastikan Anda mengarahkan permintaan API ke backend Flask. Misalnya, tambahkan fungsi fetch di komponen React untuk mengambil data dari Flask:
+     ```jsx
+     // src/App.jsx
+     import React, { useEffect, useState } from 'react';
+
+     function App() {
+       const [data, setData] = useState(null);
+
+       useEffect(() => {
+         // Ganti URL dengan alamat backend Flask
+         fetch('http://127.0.0.1:5000/api/data')
+           .then((response) => response.json())
+           .then((data) => setData(data.message))
+           .catch((error) => console.error('Error fetching data:', error));
+       }, []);
+
+       return (
+         <div>
+           <h1>React + Flask Integration</h1>
+           <p>Data from Flask: {data || 'Loading...'}</p>
+         </div>
+       );
+     }
+
+     export default App;
+     ```
+
+### 3. **Menjalankan Backend dan Frontend**
+   - Pastikan backend Flask berjalan di `http://127.0.0.1:5000`:
+     ```bash
+     python app.py
+     ```
+   - Pastikan frontend React berjalan di `http://localhost:5173`:
+     ```bash
+     npm run dev
+     ```
+
+### 4. **Menguji Integrasi**
+   - Buka browser dan akses aplikasi React di `http://localhost:5173`.
+   - Jika integrasi berhasil, Anda akan melihat pesan dari backend Flask ("Hello from Flask!") ditampilkan di halaman React.
+
 
 ---
 
