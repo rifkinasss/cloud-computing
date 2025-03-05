@@ -266,7 +266,7 @@ Pada pekan kelima, kami membuat API yang terhubung ke database PostgreSQL dan me
 
 ### 4. **Menguji API Menggunakan Postman**
    - **Menambahkan Data**:
-     - Buka Postman dan buat permintaan `POST` ke `http://127.0.0.1:5000/api/users`.
+     - Buka Postman dan buat permintaan `POST` ke `http://127.0.0.1:5000/api/items`.
      - Kirim body JSON seperti berikut:
        ```json
        {
@@ -275,7 +275,7 @@ Pada pekan kelima, kami membuat API yang terhubung ke database PostgreSQL dan me
        }
        ```
      - **Mengambil Data**:
-     - Buat permintaan `GET` ke `http://127.0.0.1:5000/api/users`.
+     - Buat permintaan `GET` ke `http://127.0.0.1:5000/api/items`.
      - Anda akan menerima daftar semua pengguna dalam format JSON:
        ```json
        [
