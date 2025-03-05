@@ -288,6 +288,10 @@ Pada pekan kelima, kami membuat API yang terhubung ke database PostgreSQL dan me
        ```
 
 ---
+## Pekan 6: Setup Docker untuk backend Flask
+---
+## Pekan 7: Setup Docker untuk frontend React + Vite
+---
 ## Qoutes
 ```
 "Satu-satunya cara untuk melakukan pekerjaan hebat adalah dengan mencintai apa yang kamu lakukan." – Steve Jobs
