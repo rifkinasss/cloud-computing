@@ -1,13 +1,14 @@
+import os
 import psycopg2
 from flask import Flask, jsonify, request
 
 # Fungsi untuk koneksi ke database PostgreSQL
 def get_db_connection():
     conn = psycopg2.connect(
-        host="localhost",
-        database="test_db",  # Sesuaikan dengan nama database yang Anda buat
-        user="student",      # Sesuaikan dengan nama user
-        password="password"  # Sesuaikan dengan password user
+        host=os.environ.get("DB_HOST", "localhost"),
+        database=os.environ.get("DB_NAME", "test_db"),
+        user=os.environ.get("DB_USER", "student"),
+        password=os.environ.get("DB_PASSWORD", "password")
     )
     return conn
 
