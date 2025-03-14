@@ -290,6 +290,72 @@ Pada pekan kelima, kami membuat API yang terhubung ke database PostgreSQL dan me
 ---
 ## Pekan 6: Setup Docker untuk backend Flask
 ---
+# Pekan 6: Setup Docker untuk Backend Flask
+
+Repositori ini berisi langkah-langkah untuk menyiapkan Docker guna menjalankan backend berbasis Flask.
+
+1. Menyiapkan Dockerfile
+Buat file `Dockerfile` dalam direktori proyek Flask Anda:
+
+```dockerfile
+# Gunakan image dasar Python
+FROM python:3.9
+
+# Atur direktori kerja dalam container
+WORKDIR /app
+
+# Salin semua file dari direktori lokal ke container
+COPY . .
+
+# Instal dependensi dari requirements.txt
+RUN pip install -r requirements.txt
+
+# Tentukan command untuk menjalankan aplikasi Flask
+CMD ["python", "app.py"]
+```
+
+2. Membangun Image Docker
+Gunakan perintah berikut untuk membangun image Docker:
+
+```sh
+docker build -t flask-backend:1.0 .
+```
+
+Jika berhasil, lakukan perintah:
+
+```sh
+docker images
+```
+
+3. Menjalankan Container
+Setelah image berhasil dibuat, jalankan container menggunakan perintah berikut:
+
+```sh
+docker run -d -p 5000:5000 --name flask-container flask-backend:1.0
+```
+
+- `-d` menjalankan container dalam mode background.
+- `-p 5000:5000` memetakan port 5000 di host ke port 5000 di container.
+- `--name flask-container` memberi nama pada container.
+
+4. Memeriksa Container yang Berjalan
+Untuk memastikan container berjalan, gunakan perintah berikut:
+
+```sh
+docker ps
+```
+
+## 7. Menghapus Image Docker
+Jika ingin menghapus image Docker yang telah dibuat:
+
+```sh
+docker rmi flask-backend:1.0
+```
+
+---
+Sekarang backend Flask Anda telah berjalan di dalam container Docker! 🚀
+
+
 ## Pekan 7: Setup Docker untuk frontend React + Vite
 ---
 ## Qoutes
