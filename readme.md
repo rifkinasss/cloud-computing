@@ -344,6 +344,13 @@ Untuk memastikan container berjalan, gunakan perintah berikut:
 docker ps
 ```
 
+5. Memeriksa Container yang Berjalan
+Untuk memastikan container berjalan, gunakan perintah berikut:
+
+```sh
+Cek aplikasi Flask berjalan di browser pada alamat http://localhost:5000.
+```
+
 
 
 
