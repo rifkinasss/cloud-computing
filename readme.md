@@ -290,7 +290,6 @@ Pada pekan kelima, kami membuat API yang terhubung ke database PostgreSQL dan me
 ---
 ## Pekan 6: Setup Docker untuk backend Flask
 ---
-# Pekan 6: Setup Docker untuk Backend Flask
 
 Repositori ini berisi langkah-langkah untuk menyiapkan Docker guna menjalankan backend berbasis Flask.
 
@@ -345,15 +344,7 @@ Untuk memastikan container berjalan, gunakan perintah berikut:
 docker ps
 ```
 
-## 7. Menghapus Image Docker
-Jika ingin menghapus image Docker yang telah dibuat:
 
-```sh
-docker rmi flask-backend:1.0
-```
-
----
-Sekarang backend Flask Anda telah berjalan di dalam container Docker! 🚀
 
 
 ## Pekan 7: Setup Docker untuk frontend React + Vite
